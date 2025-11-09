@@ -72,8 +72,8 @@ int main() {
     sem_init(&spaceReady, 0, 1);
 
     // Clear file initially
-    FILE* fp = fopen(FILE_NAME, "w");
-    fclose(fp);
+    // FILE* fp = fopen(FILE_NAME, "w");
+    // fclose(fp);
 
     pthread_create(&prod, NULL, producer, NULL);
     pthread_create(&cons, NULL, consumer, NULL);
