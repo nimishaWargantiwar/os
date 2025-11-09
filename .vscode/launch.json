@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/nimisha/Desktop/PICT/PICT 5TH SEM/SUBJECTS/OS",
+      "program": "/Users/nimisha/Desktop/PICT/PICT 5TH SEM/SUBJECTS/OS/build/Debug/outDebug"
+    }
+  ]
+}
