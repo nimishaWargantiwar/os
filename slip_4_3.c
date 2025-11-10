@@ -22,7 +22,6 @@ void* producer(void* arg) {
         pthread_mutex_lock(&mutex);
 
         fp = fopen(FILE_NAME, "w");
-        if (fp == NULL) { perror("fopen"); exit(1); }
         fprintf(fp, "%d\n", value);
         fclose(fp);
 
@@ -44,8 +43,7 @@ void* consumer(void* arg) {
         sem_wait(&dataReady); // Wait for producer
         pthread_mutex_lock(&mutex);
 
-        fp = fopen(FILE_NAME, "r");
-        if (fp == NULL) { perror("fopen"); exit(1); }
+        fp = fopen(FILE_NAME, "r"); 
         fscanf(fp, "%d", &value);
         fclose(fp);
 
@@ -82,7 +80,7 @@ int main() {
     pthread_join(cons, NULL);
 
     pthread_mutex_destroy(&mutex);
-    // sem_destroy() warnings on MacOS can be ignored
+    sem_destroy(&dataReady);
 
     return 0;
 }

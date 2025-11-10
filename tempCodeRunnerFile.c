@@ -1,41 +1,13 @@
 
-int lru(int p[],int n,int f)
-{
-    int fr[f],last[f],i,j;
-    int fault=0;
-    for(int i=0;i<f;i++)
-    {
-        last[i]=fr[i]=-1;
-    }
+int main() {
+    int head = 185, n = 10, max = 499;
+    int req[] = {20, 229, 39, 450, 18, 145, 120, 380, 20, 250};
 
-    for(int i=0;i<n;i++)
-    {
-        int hit=0;
-        for(int j=0;j<f;j++)
-        {
-            if(fr[j]==p[i])
-            {
-                hit=1;
-                last[j]=i;
-                break;
-            }
-        }
+    printf("Current Head: %d\nRequests: ", head);
+    for (int i = 0; i < n; i++) printf("%d ", req[i]);
 
-        if(hit==0)
-        {
-            int l=0;
-            for(int j=1;j<f;j++)
-            {
-                if(last[j]>last[l])
-                {
-                    l=j;
-                }
-            }
+    scan(req, n, head, max);
+    look(req, n, head);
 
-            fr[l]=p[i];
-            last[l]=i;
-            fault++;
-        }
-    }
-    return fault;
+    return 0;
 }
