@@ -5,44 +5,59 @@ file="phonebook.txt"
 while true
 do
     echo ""
-    echo "1. Add Entry"
+    echo "---- PHONE BOOK ----"
+    echo "1. Add New Entry"
     echo "2. Search Entry"
     echo "3. Sort by Last Name"
     echo "4. Delete Entry"
     echo "5. Quit"
-    read -p "Enter choice: " ch
+    read -p "Enter your choice: " ch
 
-    if [ "$ch" -eq 1 ]; then
-        echo "Enter First Name: "
-        read fname
-        echo "Enter Last Name: "
-        read lname
-        echo "Enter Phone Number: "
-        read phone
-        echo -e "$fname\t$lname\t$phone" >> $file
-        echo "Saved!"
+    if [ "$ch" = "1" ]; then
+        # Add Entry
+        read -p "Enter First Name: " fname
+        if ! [[ "$fname" =~ ^[A-Za-z]+$ ]]; then
+            echo "❌ Invalid first name. Use only letters."
+            continue
+        fi
 
-    elif [ "$ch" -eq 2 ]; then
-        echo "Enter name or phone to search: "
-        read key
-        grep -i "$key" $file
+        read -p "Enter Last Name: " lname
+        if ! [[ "$lname" =~ ^[A-Za-z]+$ ]]; then
+            echo "❌ Invalid last name. Use only letters."
+            continue
+        fi
 
-    elif [ "$ch" -eq 3 ]; then
-        sort -k2 $file -o $file
-        echo "Sorted by Last Name:"
-        cat $file
+        read -p "Enter Phone (10 digits): " phone
+        if ! [[ "$phone" =~ ^[0-9]{10}$ ]]; then
+            echo "❌ Invalid phone. Must be 10 digits."
+            continue
+        fi
 
-    elif [ "$ch" -eq 4 ]; then
-        echo "Enter name or phone to delete: "
-        read key
-        grep -iv "$key" $file > temp.txt && mv temp.txt $file
-        echo "Deleted (if found)!"
+        echo -e "$fname\t$lname\t$phone" >> "$file"
+        echo "✅ Entry saved!"
 
-    elif [ "$ch" -eq 5 ]; then
-        echo "Bye!"
+    elif [ "$ch" = "2" ]; then
+        # Search Entry
+        read -p "Enter name or phone to search: " key
+        grep -i "$key" "$file" || echo "No match found."
+
+    elif [ "$ch" = "3" ]; then
+        # Sort by Last Name (2nd field)
+        sort -k2 "$file" -o "$file"
+        echo "✅ Sorted by last name."
+        cat "$file"
+
+    elif [ "$ch" = "4" ]; then
+        # Delete Entry
+        read -p "Enter name or phone to delete: " key
+        grep -iv "$key" "$file" > temp && mv temp "$file"
+        echo "✅ Entry deleted (if found)."
+
+    elif [ "$ch" = "5" ]; then
+        echo "👋 Goodbye!"
         break
 
     else
-        echo "Invalid choice!"
+        echo "❌ Invalid choice!"
     fi
 done

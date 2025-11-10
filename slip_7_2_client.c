@@ -10,23 +10,21 @@
 #define SEM_NAME "/mysem"
 
 int main() {
-    // access existing shared memory
-    key_t key = ftok(".", 'B');
-    int shmid = shmget(key, SHM_SIZE, 0666);
+    int shmid = shmget(ftok(".", 'B'), SHM_SIZE, 0666);
     char *shm = (char*) shmat(shmid, NULL, 0);
 
     // open named semaphore
-    sem_t *sem = sem_open(SEM_NAME, 0);
+    sem_t *s = sem_open(SEM_NAME, 0);
 
     while (1) {
-        sem_wait(sem); // wait for server
+        sem_wait(s); // wait for server
 
         printf("Client read: %s\n", shm);
         if (strcmp(shm, "exit") == 0) break;
     }
 
-    shmdt(shm);
-    sem_close(sem);
+    // shmdt(shm);
+    // sem_close(sem);
 
     return 0;
 }

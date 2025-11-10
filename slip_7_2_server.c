@@ -27,11 +27,11 @@ int main() {
         if(strcmp(shm,"exit")==0) break;
     }
 
-    // cleanup
-    shmdt(shm);
-    shmctl(shmid, IPC_RMID, NULL);
-    sem_close(s);
-    sem_unlink(SEM);
+    // // cleanup
+    // shmdt(shm);
+    // shmctl(shmid, IPC_RMID, NULL);
+    // sem_close(s);  
+    // sem_unlink(SEM);
 
     return 0;
 }

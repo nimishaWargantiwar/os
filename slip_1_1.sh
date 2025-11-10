@@ -9,29 +9,47 @@ do
     echo "2. Add"
     echo "3. Remove"
     echo "4. Quit"
-    read -p "Enter your choice: " ch
+    read -p "Choice: " ch
 
-    if [ $ch -eq 1 ]; then
-        read -p "Enter ID or Name to search: " key
-        grep -i "$key" $file || echo "Not found."
+    if [ "$ch" = "1" ]; then
+        read -p "Enter name or ID: " key
+        grep -i "$key" "$file" || echo "Not found."
 
-    elif [ $ch -eq 2 ]; then
-        read -p "Enter ID: " id
-        read -p "Enter Name: " name
-        read -p "Enter Phone: " phone
-        echo "$id;$name;$phone" >> $file
-        echo "Added."
+    elif [ "$ch" = "2" ]; then
+        # --- ID validation ---
+        read -p "Enter ID (numbers only): " id
+        if ! [[ "$id" =~ ^[0-9]+$ ]]; then
+            echo "❌ Invalid ID. Use only numbers."
+            continue
+        fi
 
-    elif [ $ch -eq 3 ]; then
-        read -p "Enter ID or Name to remove: " key
-        grep -iv "$key" $file > temp && mv temp $file
-        echo "Removed (if found)."
+        # --- Name validation ---
+        read -p "Enter Name (letters only): " name
+        if ! [[ "$name" =~ ^[A-Za-z]+$ ]]; then
+            echo "❌ Invalid Name. Use only letters."
+            continue
+        fi
 
-    elif [ $ch -eq 4 ]; then
-        echo "Goodbye!"
-        exit
+        # --- Phone validation ---
+        read -p "Enter Phone (10 digits): " phone
+        if ! [[ "$phone" =~ ^[0-9]{10}$ ]]; then
+            echo "❌ Invalid Phone. Must be 10 digits."
+            continue
+        fi
+
+        echo "$id;$name;$phone" >> "$file"
+        echo "✅ Saved successfully!"
+
+    elif [ "$ch" = "3" ]; then
+        read -p "Enter name or ID to delete: " key
+        grep -iv "$key" "$file" > tmp && mv tmp "$file"
+        echo "Deleted (if found)."
+
+    elif [ "$ch" = "4" ]; then
+        echo "👋 Bye!"
+        break
 
     else
-        echo "Invalid choice."
+        echo "Invalid choice!"
     fi
 done
