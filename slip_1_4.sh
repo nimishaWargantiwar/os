@@ -39,7 +39,8 @@ list_files() {
 }
 
 # --- Menu ---
-while true; do
+while true
+ do
     echo ""
     echo "1. Test if file exists"
     echo "2. Read a file"

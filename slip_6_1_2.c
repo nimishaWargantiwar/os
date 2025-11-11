@@ -31,6 +31,11 @@ int fifo(int p[], int n, int f)
             pos = (pos + 1) % f;
             faults++;
         }
+        printf("%d\t", p[i]);
+        for (j = 0; j < f; j++) 
+            if (fr[j] != -1) printf("%d ", fr[j]); 
+            else printf("- ");
+        printf("\t%s\n", hit ? "Hit" : "Miss");
     }
 
     return faults;
@@ -158,7 +163,7 @@ int main()
     for (int i = 0; i < n; i++) 
     {
         pages[i] = rand() % 10;
-        printf("%d ", pages[i]);
+        printf("%d,", pages[i]);
     }
     printf("\n\n");
 

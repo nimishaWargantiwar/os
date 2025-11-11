@@ -1,8 +1,16 @@
 #include <stdio.h>
-#include <limits.h>
 
 int n;
 int pid[10], arrival[10], burst[10], waiting[10], turnaround[10];
+
+void printTable() {
+    printf("\nPID\tAT\tBT\tTAT\tWT\n");
+    for (int i = 0; i < n; i++) {
+        printf("P%d\t%d\t%d\t%d\t%d\n",
+               pid[i], arrival[i], burst[i], turnaround[i], waiting[i]);
+    }
+}
+
 
 // ---------- FCFS (with sorting) ----------
 void FCFS() {
@@ -44,6 +52,7 @@ void FCFS() {
         tt += turnaround[i];
     }
     printf("%d\n", time);
+    printTable();
     printf("\nAverage WT=%.2f  Average TAT=%.2f\n", tw / n, tt / n);
 }
 
@@ -85,6 +94,7 @@ void SJF_NP() {
     }
 
     printf("%d |",time);
+    printTable();
     printf("\nAverage WT=%.2f  Average TAT=%.2f\n", tw / n, tt / n);
 }
  //////////////
@@ -145,6 +155,7 @@ void SJF_P() {
         }
     }
     printf(" | %d |\n", time);
+    printTable();
 
     printf("\nAverage Waiting Time = %.2f", tw / n);
     printf("\nAverage Turnaround Time = %.2f\n", tt / n);
@@ -204,6 +215,7 @@ void RR() {
         if (rem[idx] > 0)
             queue[rear++] = idx;
     }
+    printTable();
 
     printf("\nAverage Waiting Time = %.2f", tw / n);
     printf("\nAverage Turnaround Time = %.2f\n", tt / n);
