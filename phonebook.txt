@@ -1,3 +1,2 @@
-bhumi	g	1234567890
-dsf	sdf	23423
-Nimisha	w	1234567890
+Nimisha\tWArgantiwat\t1234567890
+sdf	wdf	1234567890

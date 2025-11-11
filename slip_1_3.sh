@@ -10,7 +10,7 @@ add_entry() {
 
     if ! [[ "$id" =~ ^[0-9]+$ ]]; then
         echo "❌ Invalid ID!"
-        return
+        continue
     fi
     # if ! [[ "$phone" =~ ^[0-9]{10}$ ]]; then
     #     echo "❌ Invalid Phone!"
@@ -58,7 +58,7 @@ edit_entry() {
 
     if ! [[ "$id3" =~ ^[0-9]+$ ]]; then
         echo "❌ Invalid ID!"
-        return
+        continue
     fi
     # if ! [[ "$phone" =~ ^[0-9]{10}$ ]]; then
     #     echo "❌ Invalid Phone!"

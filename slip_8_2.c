@@ -13,7 +13,7 @@ void sort(int a[], int n) {
 }
 
 void scan(int req[], int n, int head, int max) {
-    int seq[10], k = 0, total = 0, i, prev = head;
+    int seq[50], k = 0, total = 0, i, prev = head;
 
     sort(req, n);
 
@@ -31,7 +31,7 @@ void scan(int req[], int n, int head, int max) {
     for (int j = 0; j < k; j++) {
         total += abs(seq[j] - prev);
         prev = seq[j];
-        if (seq[j] != max) printf("%d ", seq[j]);
+        printf("%d ", seq[j]);
     }
 
     printf("\nTotal head movement: %d", total);
@@ -39,7 +39,7 @@ void scan(int req[], int n, int head, int max) {
 }
 
 void look(int req[], int n, int head) {
-    int seq[10], k = 0, total = 0, i, prev = head;
+    int seq[50], k = 0, total = 0, i, prev = head;
 
     sort(req, n);
 

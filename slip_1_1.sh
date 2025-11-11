@@ -18,7 +18,7 @@ do
     elif [ "$ch" = "2" ]; then
         # --- ID validation ---
         read -p "Enter ID (numbers only): " id
-        if ! [[ "$id" =~ ^[0-9]+$ ]]; then
+        if ! [[ "$id" =~ ^[0-9]+$ ]] ; then
             echo "❌ Invalid ID. Use only numbers."
             continue
         fi

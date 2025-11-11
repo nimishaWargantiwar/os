@@ -17,23 +17,35 @@ void cscan(int head, int req[], int n, int max) {
     int total = 0, seq[20], k = 0, prev = head;
     sort(req, n);
 
-    // Move right (towards higher requests)
+    // Step 1: Move right (towards higher requests)
     for (int i = 0; i < n; i++) {
         if (req[i] >= head) {
             seq[k++] = req[i];
         }
     }
 
-    // Then wrap around to smaller requests
+    // Step 2: Move to the maximum cylinder if not already included
+    if (seq[k-1] != max) {
+        seq[k++] = max;
+    }
+
+     seq[k++] = 0;
+
+    // Step 3: Wrap around to smaller requests
     for (int i = 0; i < n; i++) {
         if (req[i] < head) {
             seq[k++] = req[i];
         }
     }
 
-    // Total head movement
-    total = (max - head) + max + seq[k - 1];
+    // Step 4: Calculate total head movement
+   
+    for (int i = 0; i < k; i++) {
+        total += abs(seq[i] - prev);
+        prev = seq[i];
+    }
 
+    // Step 5: Print sequence and stats
     printf("\nC-SCAN sequence: ");
     for (int i = 0; i < k; i++) {
         printf("%d ", seq[i]);
